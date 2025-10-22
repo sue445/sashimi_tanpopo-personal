@@ -82,7 +82,7 @@ jobs:
         with:
           recipe-files:      "${{ github.workspace }}/recipes/upgrade_go.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
-          params:            "go_version:${{ matrix.go_version }}"
+          params:            "go_version:${{ matrix.go_version }} golangci_lint_version:${{ matrix.golangci_lint_version }} "
           dry_run:           "${{ env.DRY_RUN }}"
           git-user-name:     "sashimi_tanpopo"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
