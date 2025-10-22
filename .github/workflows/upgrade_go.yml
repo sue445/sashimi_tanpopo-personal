@@ -42,7 +42,7 @@ jobs:
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - repo: "condo3"
-            go_version: "1.24"
+            go_version: "1.24.0"
             golangci_lint_version: "" # This repo doesn't use golangci-lint
 
     steps:
