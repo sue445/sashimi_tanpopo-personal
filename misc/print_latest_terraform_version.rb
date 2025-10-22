@@ -1,0 +1,3 @@
+require_relative "terraform_helper"
+
+puts TerraformHelper.latest_terraform_version

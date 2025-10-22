@@ -1,0 +1,74 @@
+name: upgrade_myself_terraform
+
+on:
+  push:
+    paths:
+      - .github/workflows/upgrade_myself_terraform.yml
+      - recipes/upgrade_myself_terraform.rb
+      - misc/print_latest_terraform_version.rb
+      - misc/terraform_helper.rb
+
+  schedule:
+    - cron: "0 10 * * 5" # JST 19:00 (Fri)
+  workflow_dispatch:
+
+env:
+  NAMESPACE:  sue445
+  ASSIGNEE:   sue445
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+
+      - name: Set envs
+        run: |
+          set -xe
+          GH_REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d/ -f2)
+          echo "GH_REPO_NAME=${GH_REPO_NAME}" >> $GITHUB_ENV
+          
+          LATEST_TERRAFORM=$(ruby ./misc/print_latest_terraform_version.rb)
+          echo "LATEST_TERRAFORM=${LATEST_TERRAFORM}" >> $GITHUB_ENV
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id:       ${{ secrets.GH_APP_ID }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ env.NAMESPACE }}
+          repositories: ${{ env.GH_REPO_NAME }}
+
+      - name: Generate arguments
+        run: |
+          set -xe
+          if [ "${GITHUB_REF}" == "refs/heads/main" ]; then
+            dry_run="false"
+          else
+            dry_run="true"
+          fi
+          echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
+
+      - uses: sue445/sashimi_tanpopo_action@v0.2.2
+        with:
+          recipe-files:      "${{ github.workspace }}/recipes/upgrade_myself_terraform.rb"
+          target-dir:        "${{ github.workspace }}"
+          dry_run:           "${{ env.DRY_RUN }}"
+          git-user-name:     "sashimi_tanpopo"
+          github-repository: "${{ env.NAMESPACE }}/${{ env.GH_REPO_NAME }}"
+          message:           "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
+          pr-title:          "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
+          pr-source-branch:  "terraform_${{ env.LATEST_TERRAFORM }}"
+          pr-assignees:      "${{ env.ASSIGNEE }}"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
