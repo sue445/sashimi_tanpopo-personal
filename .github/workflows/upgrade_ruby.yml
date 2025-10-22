@@ -1,0 +1,71 @@
+name: upgrade_ruby
+
+on:
+  push:
+    paths:
+      - .github/workflows/upgrade_ruby.yml
+      - recipes/upgrade_ruby.rb
+
+env:
+  NAMESPACE: sue445
+  ASSIGNEE:  sue445
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          # NOTE: Dependent on https://hub.docker.com/_/ruby
+          - repo: "dockerfile-packer-serverspec"
+            ruby_version: "3.4"
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id:       ${{ secrets.GH_APP_ID }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ env.NAMESPACE }}
+          repositories: ${{ matrix.repo }}
+
+      - name: checkout target repo
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -la tmp/repo/
+
+      - name: Generate arguments
+        run: |
+          set -xe
+          if [ "${GITHUB_REF}" == "refs/heads/main" ]; then
+            dry_run="false"
+          else
+            dry_run="true"
+          fi
+          echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
+
+      - uses: sue445/sashimi_tanpopo_action@v0.2.2
+        with:
+          recipe-files:      "${{ github.workspace }}/recipes/upgrade_ruby.rb"
+          target-dir:        "${{ github.workspace }}/tmp/repo"
+          params:            "ruby_version:${{ matrix.ruby_version }}"
+          dry_run:           "${{ env.DRY_RUN }}"
+          git-user-name:     "sashimi_tanpopo"
+          github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          message:           "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-title:          "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-source-branch:  "ruby_${{ matrix.ruby_version }}"
+          pr-assignees:      "${{ env.ASSIGNEE }}"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
