@@ -63,7 +63,7 @@ jobs:
         with:
           recipe-files:      "${{ github.workspace }}/recipes/upgrade_myself_terraform.rb"
           target-dir:        "${{ github.workspace }}"
-          dry_run:           "${{ env.DRY_RUN }}"
+          dry-run:           "${{ env.DRY_RUN }}"
           git-user-name:     "sashimi_tanpopo"
           github-repository: "${{ env.NAMESPACE }}/${{ env.GH_REPO_NAME }}"
           message:           "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
