@@ -33,8 +33,8 @@ update_file "Gemfile" do |content|
     content.gsub!(/^ruby "([\d.]+)"$/, %Q{ruby "#{params[:ruby_version]}"})
     content.gsub!(/^ruby '([\d.]+)'$/, %Q{ruby '#{params[:ruby_version]}'})
   else
-    content.gsub!(/^ruby "~> ([\d.]+)"$/, %Q{ruby "~> #{params[:ruby_minor_version]}.0"})
-    content.gsub!(/^ruby '~> ([\d.]+)'$/, %Q{ruby '~> #{params[:ruby_minor_version]}.0'})
+    content.gsub!(/^ruby "~> ([\d.]+)"$/, %Q{ruby "~> #{@ruby_minor_version}.0"})
+    content.gsub!(/^ruby '~> ([\d.]+)'$/, %Q{ruby '~> #{@ruby_minor_version}.0'})
   end
 end
 
