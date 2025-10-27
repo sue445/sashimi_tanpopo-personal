@@ -28,7 +28,7 @@ if @is_full_version
   end
 end
 
-update_file "Dockerfile" do |content|
+update_file "Gemfile" do |content|
   if @is_full_version
     content.gsub!(/^ruby "([\d.]+)"$/, %Q{ruby "#{params[:ruby_version]}"})
     content.gsub!(/^ruby '([\d.]+)'$/, %Q{ruby '#{params[:ruby_version]}'})
@@ -61,4 +61,10 @@ end
 
 update_file ".tool-versions" do |content|
   content.gsub!(/^ruby ([\d.]+)$/, "ruby #{params[:ruby_version]}")
+end
+
+update_file "Dockerfile" do |content|
+  content.gsub!(/^FROM ruby:\\([\d.]+\\)$/, %Q{FROM ruby:#{params[:ruby_version]}})
+  content.gsub!(/^FROM ruby:\\([\d.]+\\)-$(.+)$/) { %Q{FROM ruby:#{params[:ruby_version]}-#{$1}} }
+  content.gsub!(/^ARG RUBY_VERSION=\\([\d.]+\\)$/, %Q{ARG RUBY_VERSION=#{params[:ruby_version]}})
 end
