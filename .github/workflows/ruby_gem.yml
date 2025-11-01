@@ -20,7 +20,12 @@ jobs:
 
       matrix:
         include:
+          - repo: "connpass_api_v2-ruby"
+          - repo: "doorkeeper_jp"
+          - repo: "funnel_http"
+          - repo: "kagaribi"
           - repo: "sashimi_tanpopo"
+          - repo: "x_post_sanitizer"
 
     steps:
       - uses: actions/checkout@v5
@@ -62,8 +67,8 @@ jobs:
           dry-run:           "${{ env.DRY_RUN }}"
           git-user-name:     "sashimi_tanpopo"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Update files"
-          pr-title:          "Update files"
+          message:           "Update files from sue445/sashimi_tanpopo-personal"
+          pr-title:          "Update files from sue445/sashimi_tanpopo-personal"
           pr-source-branch:  "update_files"
           pr-assignees:      "${{ env.ASSIGNEE }}"
         env:
