@@ -1,0 +1,70 @@
+name: ruby_gem
+
+on:
+  push:
+    paths:
+      - .github/workflows/ruby_gem.yml
+      - recipes/ruby_gem.rb
+      - recipes/files/ruby_gem/**
+
+env:
+  NAMESPACE: sue445
+  ASSIGNEE:  sue445
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - repo: "sashimi_tanpopo"
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id:       ${{ secrets.GH_APP_ID }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ env.NAMESPACE }}
+          repositories: ${{ matrix.repo }}
+
+      - name: checkout target repo
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -la tmp/repo/
+
+      - name: Generate arguments
+        run: |
+          set -xe
+          if [ "${GITHUB_REF}" == "refs/heads/main" ]; then
+            dry_run="false"
+          else
+            dry_run="true"
+          fi
+          echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
+
+      - uses: sue445/sashimi_tanpopo_action@v0.3.1
+        with:
+          recipe-files:      "${{ github.workspace }}/recipes/ruby_gem.rb"
+          target-dir:        "${{ github.workspace }}/tmp/repo"
+          dry-run:           "${{ env.DRY_RUN }}"
+          git-user-name:     "sashimi_tanpopo"
+          github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          message:           "Update files"
+          pr-title:          "Update files"
+          pr-source-branch:  "update_files"
+          pr-assignees:      "${{ env.ASSIGNEE }}"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
