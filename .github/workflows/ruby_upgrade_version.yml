@@ -1,10 +1,10 @@
-name: upgrade_go
+name: ruby_upgrade_version
 
 on:
   push:
     paths:
-      - .github/workflows/upgrade_go.yml
-      - recipes/upgrade_go.rb
+      - .github/workflows/ruby_upgrade_version.yml
+      - recipes/ruby_upgrade_version.rb
 
 env:
   NAMESPACE: sue445
@@ -19,31 +19,41 @@ jobs:
 
       matrix:
         include:
-          - repo: "terraform-version-updater"
-            go_version: "1.25"
-            golangci_lint_version: "v2.4"
+          # NOTE: Dependent on https://hub.docker.com/_/ruby
+          - repo: "dockerfile-packer-serverspec"
+            ruby_version: "3.4"
 
-          - repo: "zatsu_monitor"
-            go_version: "1.25"
-            golangci_lint_version: "v2.4"
+          - repo: "dockerhub-slack-webhook"
+            ruby_version: "3.4"
 
-          # NOTE: Dependent on https://hub.docker.com/_/golang
-          - repo: "feed_squeezer"
-            go_version: "1.25"
-            golangci_lint_version: "v2.4"
+          - repo: "emoy_webhook"
+            ruby_version: "3.4"
 
-          - repo: "gitpanda"
-            go_version: "1.25"
-            golangci_lint_version: "v2.4"
+          - repo: "rubicure-playground"
+            ruby_version: "3.4"
 
-          - repo: "plant_erd"
-            go_version: "1.25"
-            golangci_lint_version: "v2.4"
+          - repo: "sashimi_tanpopo"
+            ruby_version: "3.4"
 
-          # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
-          - repo: "condo3"
-            go_version: "1.24.0"
-            golangci_lint_version: "" # This repo doesn't use golangci-lint
+          # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
+          - repo: "cure-mastodon-bots"
+            ruby_version: "3.4"
+
+          - repo: "precure-birthday-calendar"
+            ruby_version: "3.4"
+
+          - repo: "pretty-all-friends-birthday-calendar"
+            ruby_version: "3.4"
+
+          - repo: "tweet_pixels"
+            ruby_version: "3.4"
+
+          # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
+          - repo: "pribirthdaybot"
+            ruby_version: "3.4"
+
+          - repo: "regional-rb-calendar"
+            ruby_version: "3.4"
 
     steps:
       - uses: actions/checkout@v5
@@ -80,15 +90,15 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@v0.3.1
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/upgrade_go.rb"
+          recipe-files:      "${{ github.workspace }}/recipes/ruby_upgrade_version.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
-          params:            "go_version:${{ matrix.go_version }} golangci_lint_version:${{ matrix.golangci_lint_version }} "
+          params:            "ruby_version:${{ matrix.ruby_version }}"
           dry-run:           "${{ env.DRY_RUN }}"
           git-user-name:     "sashimi_tanpopo"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Upgrade to go ${{ matrix.go_version }}"
-          pr-title:          "Upgrade to go ${{ matrix.go_version }}"
-          pr-source-branch:  "go_${{ matrix.go_version }}"
+          message:           "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-title:          "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-source-branch:  "ruby_${{ matrix.ruby_version }}"
           pr-assignees:      "${{ env.ASSIGNEE }}"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
