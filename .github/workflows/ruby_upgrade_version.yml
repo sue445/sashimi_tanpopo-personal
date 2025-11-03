@@ -1,10 +1,10 @@
-name: upgrade_ruby
+name: ruby_upgrade_version
 
 on:
   push:
     paths:
-      - .github/workflows/upgrade_ruby.yml
-      - recipes/upgrade_ruby.rb
+      - .github/workflows/ruby_upgrade_version.yml
+      - recipes/ruby_upgrade_version.rb
 
 env:
   NAMESPACE: sue445
@@ -90,7 +90,7 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@v0.3.1
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/upgrade_ruby.rb"
+          recipe-files:      "${{ github.workspace }}/recipes/ruby_upgrade_version.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
           params:            "ruby_version:${{ matrix.ruby_version }}"
           dry-run:           "${{ env.DRY_RUN }}"
