@@ -78,7 +78,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@v0.3.1
+      - uses: sue445/sashimi_tanpopo_action@v0.4.0
         with:
           recipe-files:      "${{ github.workspace }}/recipes/go_upgrade_version.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
