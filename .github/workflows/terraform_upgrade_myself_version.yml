@@ -1,10 +1,10 @@
-name: upgrade_myself_terraform
+name: terraform_upgrade_myself_version
 
 on:
   push:
     paths:
-      - .github/workflows/upgrade_myself_terraform.yml
-      - recipes/upgrade_myself_terraform.rb
+      - .github/workflows/terraform_upgrade_myself_version.yml
+      - recipes/terraform_upgrade_myself_version.rb
       - misc/print_latest_terraform_version.rb
       - misc/terraform_helper.rb
 
@@ -61,7 +61,7 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@v0.3.1
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/upgrade_myself_terraform.rb"
+          recipe-files:      "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
           target-dir:        "${{ github.workspace }}"
           dry-run:           "${{ env.DRY_RUN }}"
           git-user-name:     "sashimi_tanpopo"
