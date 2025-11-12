@@ -60,7 +60,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@v0.4.0
+      - uses: sue445/sashimi_tanpopo_action@v0.4.1
         with:
           recipe-files:      "${{ github.workspace }}/recipes/ruby_gem.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
