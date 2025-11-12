@@ -59,13 +59,12 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@v0.4.0
+      - uses: sue445/sashimi_tanpopo_action@v0.4.1
         with:
           recipe-files:      "${{ github.workspace }}/recipes/terraform_upgrade_version.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
           params:            "terraform_version:${{ matrix.terraform_version }}"
           dry-run:           "${{ env.DRY_RUN }}"
-          git-user-name:     "sashimi_tanpopo"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
           message:           "Upgrade to Terraform ${{ matrix.terraform_version }}"
           pr-title:          "Upgrade to Terraform ${{ matrix.terraform_version }}"
