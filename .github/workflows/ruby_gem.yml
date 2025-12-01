@@ -20,12 +20,13 @@ jobs:
 
       matrix:
         include:
+          # TODO: Do after
           - repo: "connpass_api_v2-ruby"
-          - repo: "doorkeeper_jp"
-          - repo: "funnel_http"
-          - repo: "kagaribi"
-          - repo: "sashimi_tanpopo"
-          - repo: "x_post_sanitizer"
+          # - repo: "doorkeeper_jp"
+          # - repo: "funnel_http"
+          # - repo: "kagaribi"
+          # - repo: "sashimi_tanpopo"
+          # - repo: "x_post_sanitizer"
 
     steps:
       - uses: actions/checkout@v6
