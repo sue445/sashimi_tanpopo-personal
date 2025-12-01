@@ -28,7 +28,7 @@ jobs:
           - repo: "x_post_sanitizer"
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           submodules: true
 
@@ -42,7 +42,7 @@ jobs:
           repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
