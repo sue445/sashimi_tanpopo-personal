@@ -97,6 +97,7 @@ jobs:
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
           message:           "Upgrade to Ruby ${{ matrix.ruby_version }}"
           pr-title:          "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:  "ruby_${{ matrix.ruby_version }}"
           pr-assignees:      "${{ env.ASSIGNEE }}"
         env:

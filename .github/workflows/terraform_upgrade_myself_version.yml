@@ -69,6 +69,7 @@ jobs:
           github-repository: "${{ env.NAMESPACE }}/${{ env.GH_REPO_NAME }}"
           message:           "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
           pr-title:          "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
+          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:  "terraform_${{ env.LATEST_TERRAFORM }}"
           pr-assignees:      "${{ env.ASSIGNEE }}"
         env:

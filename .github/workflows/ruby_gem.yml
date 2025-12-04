@@ -69,6 +69,7 @@ jobs:
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
           message:           "Update files from sue445/sashimi_tanpopo-personal"
           pr-title:          "Update files from sue445/sashimi_tanpopo-personal"
+          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:  "update_files"
           pr-assignees:      "${{ env.ASSIGNEE }}"
         env:
