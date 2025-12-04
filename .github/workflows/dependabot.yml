@@ -122,7 +122,7 @@ jobs:
           target-dir:        "${{ github.workspace }}/tmp/repo"
           dry-run:           "${{ env.DRY_RUN }}"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Update .github/dependabot.yml :dependabot:"
+          message:           "Update .github/dependabot.yml :dependabot: [ci skip]"
           pr-title:          "Update .github/dependabot.yml :dependabot:"
           pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:  "update_dependabot_yml"
