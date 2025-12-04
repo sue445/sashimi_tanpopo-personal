@@ -43,14 +43,14 @@ update_file ".github/dependabot.yml" do |content|
     if content.include?("#{HEADER}  - package-ecosystem: github-actions")
       content.gsub!(/(#{HEADER}  -\s+package-ecosystem: github-actions[\s\S]*?)#{FOOTER}/m, section_yaml)
     else
-      content.gsub!(/(  -\s+package-ecosystem: github-actions[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)/m, section_yaml)
+      content.gsub!(%r{(  -\s+package-ecosystem: github-actions\n    directory: /\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
     end
   end
 
   if content =~ /^  - package-ecosystem: bundler$/
     yaml = indent(<<~YAML, 2)
       - package-ecosystem: bundler
-        directory: "/"
+        directory: /
         schedule:
           interval: daily
           time: "05:00"
@@ -66,14 +66,14 @@ update_file ".github/dependabot.yml" do |content|
     if content.include?("#{HEADER}  - package-ecosystem: bundler")
       content.gsub!(/(#{HEADER}  -\s+package-ecosystem: bundler[\s\S]*?)#{FOOTER}/m, section_yaml)
     else
-      content.gsub!(/(  -\s+package-ecosystem: bundler[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)/m, section_yaml)
+      content.gsub!(%r{(  -\s+package-ecosystem: bundler\n    directory: /\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
     end
   end
 
   if content =~ /^  - package-ecosystem: gomod$/
     yaml = indent(<<~YAML, 2)
       - package-ecosystem: gomod
-        directory: "/"
+        directory: /
         schedule:
           interval: daily
           time: "05:00"
@@ -86,9 +86,9 @@ update_file ".github/dependabot.yml" do |content|
 
     section_yaml = "#{HEADER}#{yaml}#{FOOTER}"
     if content.include?("#{HEADER}  - package-ecosystem: gomod")
-      content.gsub!(/(#{HEADER}  -\s+package-ecosystem: bundler[\s\S]*?)#{FOOTER}/m, section_yaml)
+      content.gsub!(/(#{HEADER}  -\s+package-ecosystem: gomod[\s\S]*?)#{FOOTER}/m, section_yaml)
     else
-      content.gsub!(/(  -\s+package-ecosystem: gomod[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)/m, section_yaml)
+      content.gsub!(%r{(  -\s+package-ecosystem: gomod\n    directory: /\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
     end
   end
 
