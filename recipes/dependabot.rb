@@ -43,7 +43,7 @@ update_file ".github/dependabot.yml" do |content|
     if content.include?("#{HEADER}  - package-ecosystem: github-actions")
       content.gsub!(/(#{HEADER}  -\s+package-ecosystem: github-actions[\s\S]*?)#{FOOTER}/m, section_yaml)
     else
-      content.gsub!(%r{(  -\s+package-ecosystem: github-actions\n    directory: /\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
+      content.gsub!(%r{(  -\s+package-ecosystem: github-actions\n    directory: "?/"?\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
     end
   end
 
@@ -66,7 +66,7 @@ update_file ".github/dependabot.yml" do |content|
     if content.include?("#{HEADER}  - package-ecosystem: bundler")
       content.gsub!(/(#{HEADER}  -\s+package-ecosystem: bundler[\s\S]*?)#{FOOTER}/m, section_yaml)
     else
-      content.gsub!(%r{(  -\s+package-ecosystem: bundler\n    directory: /\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
+      content.gsub!(%r{(  -\s+package-ecosystem: bundler\n    directory: "?/"?\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
     end
   end
 
@@ -88,7 +88,7 @@ update_file ".github/dependabot.yml" do |content|
     if content.include?("#{HEADER}  - package-ecosystem: gomod")
       content.gsub!(/(#{HEADER}  -\s+package-ecosystem: gomod[\s\S]*?)#{FOOTER}/m, section_yaml)
     else
-      content.gsub!(%r{(  -\s+package-ecosystem: gomod\n    directory: /\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
+      content.gsub!(%r{(  -\s+package-ecosystem: gomod\n    directory: "?/"?\n[\s\S]*?)(?=  -\s+package-ecosystem:|\Z)}m, section_yaml)
     end
   end
 
