@@ -19,13 +19,69 @@ jobs:
 
       matrix:
         include:
-          - repo: "emoy_webhook"
-          - repo: "gitpanda"
-          # - repo: "doorkeeper_jp"
-          # - repo: "funnel_http"
-          # - repo: "kagaribi"
-          # - repo: "sashimi_tanpopo"
-          # - repo: "x_post_sanitizer"
+          - repo: activerecord-compatible_legacy_migration
+          - repo: activerecord-simple_index_name
+          - repo: apple_system_status
+          - repo: capistrano-itamae
+          - repo: chatwork_webhook_verify
+          - repo: condo3
+          - repo: connpass_api_v2-ruby
+          - repo: cure-mastodon-bots
+          - repo: cure_line
+          - repo: datadog_thread_tracer
+          - repo: date_discreter
+          - repo: dockerfile-awscli-all
+          - repo: dockerfile-heroku-cli
+          - repo: dockerfile-packer-serverspec
+          - repo: dockerhub-slack-webhook
+          - repo: doorkeeper_jp
+          - repo: emoy_webhook
+          - repo: faker-precure
+          - repo: faker-pretty_series
+          - repo: faraday-mashify
+          - repo: faraday_boolean
+          - repo: feed_squeezer
+          - repo: fluent-plugin-chatwork
+          - repo: funnel_http
+          - repo: gcp-kmsenv
+          - repo: gcp-secretmanagerenv
+          - repo: gitlab_mr_release
+          - repo: gitpanda
+          - repo: go-doorkeeper
+          - repo: google_holiday_calendar
+          - repo: index_shotgun
+          - repo: itamae-plugin-recipe-consul
+          - repo: itamae-plugin-recipe-git_now
+          - repo: itamae-plugin-recipe-gitlab_runner
+          - repo: itamae-plugin-recipe-tig
+          - repo: itamae-plugin-resource-encrypted_remote_file
+          - repo: itest5ch
+          - repo: kagaribi
+          - repo: kiriban_getter
+          - repo: mysql2-nested_hash_bind
+          - repo: omniauth-chatwork
+          - repo: pixela
+          - repo: plant_erd
+          - repo: precure-birthday-calendar
+          - repo: pretty-all-friends-birthday-calendar
+          - repo: pribirthdaybot
+          - repo: prismdb-ruby
+          - repo: regional-rb-calendar
+          - repo: rspec-temp_dir
+          - repo: rspec-time_stop
+          - repo: rubicure
+          - repo: rubocop-isucon
+          - repo: rubocop-itamae
+          - repo: rubocop_auto_corrector
+          - repo: sashimi_tanpopo
+          - repo: sashimi_tanpopo-personal
+          - repo: sashimi_tanpopo_action
+          - repo: sengiri_yaml
+          - repo: syobocalite
+          - repo: terraform-version-updater
+          - repo: tweet_pixels
+          - repo: x_post_sanitizer
+          - repo: zatsu_monitor
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
