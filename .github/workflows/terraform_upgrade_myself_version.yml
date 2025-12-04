@@ -23,11 +23,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           submodules: true
 
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@8aeb6ff8030dd539317f8e1769a044873b56ea71 # v1.268.0
         with:
           ruby-version: ruby
 
@@ -44,7 +44,7 @@ jobs:
 
       - name: Generate token
         id: generate_token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
         with:
           app-id:       ${{ secrets.GH_APP_ID }}
           private-key:  ${{ secrets.GH_PRIVATE_KEY }}
@@ -61,7 +61,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@v0.4.1
+      - uses: sue445/sashimi_tanpopo_action@32598bca5fd6a39a8bffc7ee72ca67a57b5e3399 # v0.4.1
         with:
           recipe-files:      "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
           target-dir:        "${{ github.workspace }}"
@@ -76,7 +76,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       - name: Slack Notification
-        uses: act10ns/slack@v2
+        uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
         if: always()
         continue-on-error: true
         with:

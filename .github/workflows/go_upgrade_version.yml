@@ -46,13 +46,13 @@ jobs:
             golangci_lint_version: "" # This repo doesn't use golangci-lint
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           submodules: true
 
       - name: Generate token
         id: generate_token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
         with:
           app-id:       ${{ secrets.GH_APP_ID }}
           private-key:  ${{ secrets.GH_PRIVATE_KEY }}
@@ -60,7 +60,7 @@ jobs:
           repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
@@ -78,7 +78,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@v0.4.1
+      - uses: sue445/sashimi_tanpopo_action@32598bca5fd6a39a8bffc7ee72ca67a57b5e3399 # v0.4.1
         with:
           recipe-files:      "${{ github.workspace }}/recipes/go_upgrade_version.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
@@ -94,7 +94,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       - name: Slack Notification (not success)
-        uses: act10ns/slack@v2
+        uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
         if: "! success()"
         continue-on-error: true
         with:
@@ -110,7 +110,7 @@ jobs:
 
     steps:
       - name: Slack Notification (success)
-        uses: act10ns/slack@v2
+        uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
         if: always()
         continue-on-error: true
         with:
