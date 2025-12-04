@@ -31,7 +31,7 @@ update_file ".github/dependabot.yml" do |content|
           default-days: 7
     YAML
 
-    if content =~ /^  - package-ecosystem: bundler$/
+    if File.exist?("Gemfile")
       # Append to cooldown.exclude
       yaml << indent(<<~YAML, 6)
         exclude:
