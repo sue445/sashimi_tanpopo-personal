@@ -1,0 +1,99 @@
+name: Update .github/dependabot.yml
+
+on:
+  push:
+    paths:
+      - .github/workflows/dependabot.yml
+      - recipes/dependabot.rb
+
+env:
+  NAMESPACE: sue445
+  ASSIGNEE:  sue445
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - repo: "emoy_webhook"
+          - repo: "gitpanda"
+          # - repo: "doorkeeper_jp"
+          # - repo: "funnel_http"
+          # - repo: "kagaribi"
+          # - repo: "sashimi_tanpopo"
+          # - repo: "x_post_sanitizer"
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id:       ${{ secrets.GH_APP_ID }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ env.NAMESPACE }}
+          repositories: ${{ matrix.repo }}
+
+      - name: checkout target repo
+        uses: actions/checkout@v6
+        with:
+          repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -la tmp/repo/
+
+      - name: Generate arguments
+        run: |
+          set -xe
+          if [ "${GITHUB_REF}" == "refs/heads/main" ]; then
+            dry_run="false"
+          else
+            dry_run="true"
+          fi
+          echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
+
+      - uses: sue445/sashimi_tanpopo_action@v0.4.1
+        with:
+          recipe-files:      "${{ github.workspace }}/recipes/dependabot.rb"
+          target-dir:        "${{ github.workspace }}/tmp/repo"
+          dry-run:           "${{ env.DRY_RUN }}"
+          github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          message:           "Update .github/dependabot.yml from sue445/sashimi_tanpopo-personal"
+          pr-title:          "Update .github/dependabot.yml from sue445/sashimi_tanpopo-personal"
+          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ env.GITHUB_SHA }}"
+          pr-source-branch:  "update_dependabot_yml"
+          pr-assignees:      "${{ env.ASSIGNEE }}"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - name: Slack Notification (not success)
+        uses: act10ns/slack@v2
+        if: "! success()"
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          matrix: ${{ toJson(matrix) }}
+
+  notify:
+    needs:
+      - build
+
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Slack Notification (success)
+        uses: act10ns/slack@v2
+        if: always()
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
