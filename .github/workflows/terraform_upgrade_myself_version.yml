@@ -7,6 +7,8 @@ on:
       - recipes/terraform_upgrade_myself_version.rb
       - misc/print_latest_terraform_version.rb
       - misc/terraform_helper.rb
+    branches-ignore:
+      - main
 
   schedule:
     - cron: "0 10 * * 5" # JST 19:00 (Fri)
