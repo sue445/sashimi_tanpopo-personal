@@ -50,7 +50,7 @@ update_file ".github/dependabot.yml" do |content|
   if content =~ /^  - package-ecosystem: bundler$/
     yaml = indent(<<~YAML, 2)
       - package-ecosystem: bundler
-        directory: "/"
+        directory: /
         schedule:
           interval: daily
           time: "05:00"
@@ -73,7 +73,7 @@ update_file ".github/dependabot.yml" do |content|
   if content =~ /^  - package-ecosystem: gomod$/
     yaml = indent(<<~YAML, 2)
       - package-ecosystem: gomod
-        directory: "/"
+        directory: /
         schedule:
           interval: daily
           time: "05:00"
