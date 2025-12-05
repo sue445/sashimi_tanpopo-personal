@@ -93,4 +93,5 @@ update_file ".github/dependabot.yml" do |content|
   end
 
   content.gsub!("#{FOOTER}#{HEADER}", "#{FOOTER}\n#{HEADER}")
+  content.gsub!(/\n{2,}\z/, "\n")
 end
