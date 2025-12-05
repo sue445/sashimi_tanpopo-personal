@@ -127,6 +127,7 @@ jobs:
           pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:  "update_dependabot_yml"
           pr-assignees:      "${{ env.ASSIGNEE }}"
+          pr-labels:         "chore"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
