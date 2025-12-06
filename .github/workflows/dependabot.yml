@@ -54,6 +54,7 @@ jobs:
           - repo: itamae-plugin-recipe-git_now
           - repo: itamae-plugin-recipe-gitlab_runner
           - repo: itamae-plugin-recipe-tig
+          - repo: itamae-plugin-recipe-tmux
           - repo: itamae-plugin-resource-encrypted_remote_file
           - repo: itest5ch
           - repo: kagaribi
