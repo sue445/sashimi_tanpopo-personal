@@ -71,6 +71,7 @@ jobs:
           pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:  "terraform_${{ matrix.terraform_version }}"
           pr-assignees:      "${{ env.ASSIGNEE }}"
+          only-changes-summary: "true"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
