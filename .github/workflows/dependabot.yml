@@ -117,7 +117,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@32598bca5fd6a39a8bffc7ee72ca67a57b5e3399 # v0.4.1
+      - uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
         with:
           recipe-files:      "${{ github.workspace }}/recipes/dependabot.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
