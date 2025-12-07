@@ -90,16 +90,17 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/ruby_upgrade_version.rb"
-          target-dir:        "${{ github.workspace }}/tmp/repo"
-          params:            "ruby_version:${{ matrix.ruby_version }}"
-          dry-run:           "${{ env.DRY_RUN }}"
-          github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Upgrade to Ruby ${{ matrix.ruby_version }}"
-          pr-title:          "Upgrade to Ruby ${{ matrix.ruby_version }}"
-          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
-          pr-source-branch:  "ruby_${{ matrix.ruby_version }}"
-          pr-assignees:      "${{ env.ASSIGNEE }}"
+          recipe-files:         "${{ github.workspace }}/recipes/ruby_upgrade_version.rb"
+          target-dir:           "${{ github.workspace }}/tmp/repo"
+          params:               "ruby_version:${{ matrix.ruby_version }}"
+          dry-run:              "${{ env.DRY_RUN }}"
+          github-repository:    "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          message:              "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-title:             "Upgrade to Ruby ${{ matrix.ruby_version }}"
+          pr-body:              "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
+          pr-source-branch:     "ruby_${{ matrix.ruby_version }}"
+          pr-assignees:         "${{ env.ASSIGNEE }}"
+          only-changes-summary: "true"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
