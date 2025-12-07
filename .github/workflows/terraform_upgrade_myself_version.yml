@@ -63,15 +63,15 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
-          target-dir:        "${{ github.workspace }}"
-          dry-run:           "${{ env.DRY_RUN }}"
-          github-repository: "${{ env.NAMESPACE }}/${{ env.GH_REPO_NAME }}"
-          message:           "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
-          pr-title:          "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
-          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
-          pr-source-branch:  "terraform_${{ env.LATEST_TERRAFORM }}"
-          pr-assignees:      "${{ env.ASSIGNEE }}"
+          recipe-files:         "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
+          target-dir:           "${{ github.workspace }}"
+          dry-run:              "${{ env.DRY_RUN }}"
+          github-repository:    "${{ env.NAMESPACE }}/${{ env.GH_REPO_NAME }}"
+          message:              "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
+          pr-title:             "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
+          pr-body:              "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
+          pr-source-branch:     "terraform_${{ env.LATEST_TERRAFORM }}"
+          pr-assignees:         "${{ env.ASSIGNEE }}"
           only-changes-summary: "true"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
