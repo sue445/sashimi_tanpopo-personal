@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/ruby_upgrade_version.yml
-      - recipes/ruby_upgrade_version.rb
+      - ../../recipes/ruby_runtime_version.rb
 
 env:
   NAMESPACE: sue445
@@ -97,9 +97,10 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
+      - name: Run recipes/ruby_runtime_version.rb
+        uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
         with:
-          recipe-files:         "${{ github.workspace }}/recipes/ruby_upgrade_version.rb"
+          recipe-files:         "${{ github.workspace }}/recipes/ruby_runtime_version.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
           params:               "ruby_version:${{ matrix.ruby_version }}"
           dry-run:              "${{ env.DRY_RUN }}"
