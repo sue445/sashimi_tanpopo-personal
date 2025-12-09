@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/ruby_upgrade_version.yml
-      - recipes/ruby_upgrade_version.rb
+      - ../../recipes/ruby_runtime_version.rb
 
 env:
   NAMESPACE: sue445
@@ -25,12 +25,15 @@ jobs:
 
           - repo: "dockerhub-slack-webhook"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "emoy_webhook"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "rubicure-playground"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "sashimi_tanpopo"
             ruby_version: "3.4"
@@ -38,22 +41,28 @@ jobs:
           # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
           - repo: "cure-mastodon-bots"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "precure-birthday-calendar"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "pretty-all-friends-birthday-calendar"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "tweet_pixels"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "pribirthdaybot"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
           - repo: "regional-rb-calendar"
             ruby_version: "3.4"
+            bundler_version: "4.0.0"
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -88,9 +97,10 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
+      - name: Run recipes/ruby_runtime_version.rb
+        uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
         with:
-          recipe-files:         "${{ github.workspace }}/recipes/ruby_upgrade_version.rb"
+          recipe-files:         "${{ github.workspace }}/recipes/ruby_runtime_version.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
           params:               "ruby_version:${{ matrix.ruby_version }}"
           dry-run:              "${{ env.DRY_RUN }}"
@@ -99,6 +109,23 @@ jobs:
           pr-title:             "Upgrade to Ruby ${{ matrix.ruby_version }}"
           pr-body:              "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
           pr-source-branch:     "ruby_${{ matrix.ruby_version }}"
+          pr-assignees:         "${{ env.ASSIGNEE }}"
+          only-changes-summary: "true"
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - name: Run recipes/ruby_bundler_version.rb
+        uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
+        with:
+          recipe-files:         "${{ github.workspace }}/recipes/ruby_bundler_version.rb"
+          target-dir:           "${{ github.workspace }}/tmp/repo"
+          params:               "bundler_version:${{ matrix.bundler_version }}"
+          dry-run:              "${{ env.DRY_RUN }}"
+          github-repository:    "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          message:              "Upgrade to Bundler ${{ matrix.bundler_version }}"
+          pr-title:             "Upgrade to Bundler ${{ matrix.bundler_version }}"
+          pr-body:              "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
+          pr-source-branch:     "bundler_${{ matrix.bundler_version }}"
           pr-assignees:         "${{ env.ASSIGNEE }}"
           only-changes-summary: "true"
         env:
