@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/ruby_upgrade_version.yml
-      - ../../recipes/ruby_runtime_version.rb
+      - recipes/ruby_runtime_version.rb
 
 env:
   NAMESPACE: sue445
