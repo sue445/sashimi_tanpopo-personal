@@ -81,6 +81,7 @@ jobs:
           - repo: syobocalite
           - repo: terraform-version-updater
           - repo: tweet_pixels
+          - repo: workflows
           - repo: x_post_sanitizer
           - repo: zatsu_monitor
 
