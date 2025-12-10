@@ -81,6 +81,7 @@ jobs:
           - repo: syobocalite
           - repo: terraform-version-updater
           - repo: tweet_pixels
+          - repo: workflows
           - repo: x_post_sanitizer
           - repo: zatsu_monitor
 
@@ -119,16 +120,17 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@c317a33b9544000c538baa14a508345e7d4bb1c2 # v0.5.0
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/dependabot.rb"
-          target-dir:        "${{ github.workspace }}/tmp/repo"
-          dry-run:           "${{ env.DRY_RUN }}"
-          github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Update .github/dependabot.yml :dependabot: [ci skip]"
-          pr-title:          "Update .github/dependabot.yml :dependabot:"
-          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
-          pr-source-branch:  "update_dependabot_yml"
-          pr-assignees:      "${{ env.ASSIGNEE }}"
-          pr-labels:         "chore"
+          recipe-files:         "${{ github.workspace }}/recipes/dependabot.rb"
+          target-dir:           "${{ github.workspace }}/tmp/repo"
+          dry-run:              "${{ env.DRY_RUN }}"
+          github-repository:    "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          message:              "Update .github/dependabot.yml :dependabot: [ci skip]"
+          pr-title:             "Update .github/dependabot.yml :dependabot:"
+          pr-body:              "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
+          pr-source-branch:     "update_dependabot_yml"
+          pr-assignees:         "${{ env.ASSIGNEE }}"
+          pr-labels:            "chore"
+          only-changes-summary: "true"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
