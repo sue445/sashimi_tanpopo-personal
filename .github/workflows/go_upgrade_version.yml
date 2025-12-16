@@ -21,24 +21,24 @@ jobs:
         include:
           - repo: "terraform-version-updater"
             go_version: "1.25"
-            golangci_lint_version: "v2.4"
+            golangci_lint_version: "2.4"
 
           - repo: "zatsu_monitor"
             go_version: "1.25"
-            golangci_lint_version: "v2.4"
+            golangci_lint_version: "2.4"
 
           # NOTE: Dependent on https://hub.docker.com/_/golang
           - repo: "feed_squeezer"
             go_version: "1.25"
-            golangci_lint_version: "v2.4"
+            golangci_lint_version: "2.4"
 
           - repo: "gitpanda"
             go_version: "1.25.5"
-            golangci_lint_version: "v2.4"
+            golangci_lint_version: "2.4"
 
           - repo: "plant_erd"
             go_version: "1.25"
-            golangci_lint_version: "v2.4"
+            golangci_lint_version: "2.4"
 
           # c.f. https://cloud.google.com/appengine/docs/standard/lifecycle/support-schedule#go
           - repo: "condo3"
