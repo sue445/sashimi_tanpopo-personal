@@ -100,12 +100,14 @@ jobs:
           target-dir:        "${{ github.workspace }}/tmp/repo"
           dry-run:           "${{ env.DRY_RUN }}"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Update files from sue445/sashimi_tanpopo-personal"
-          pr-title:          "Update files from sue445/sashimi_tanpopo-personal"
           pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
-          pr-source-branch:  "update_files"
           pr-assignees:      "${{ env.ASSIGNEE }}"
           only-changes-summary: "true"
+
+          # TODO: Fix followings when add new ruby version
+          message:          "CI against for Ruby 4.0"
+          pr-title:         "CI against for Ruby 4.0"
+          pr-source-branch: "ruby_4.0"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
