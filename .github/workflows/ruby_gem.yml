@@ -5,7 +5,6 @@ on:
     paths:
       - .github/workflows/ruby_gem.yml
       - recipes/ruby_gem.rb
-      - recipes/files/ruby_gem/**
 
 env:
   NAMESPACE: sue445
