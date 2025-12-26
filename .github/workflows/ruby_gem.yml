@@ -5,7 +5,6 @@ on:
     paths:
       - .github/workflows/ruby_gem.yml
       - recipes/ruby_gem.rb
-      - recipes/files/ruby_gem/**
 
 env:
   NAMESPACE: sue445
@@ -20,13 +19,47 @@ jobs:
 
       matrix:
         include:
-          # TODO: Do after
-          - repo: "connpass_api_v2-ruby"
-          # - repo: "doorkeeper_jp"
-          # - repo: "funnel_http"
-          # - repo: "kagaribi"
-          # - repo: "sashimi_tanpopo"
-          # - repo: "x_post_sanitizer"
+          - repo: activerecord-compatible_legacy_migration
+          - repo: activerecord-simple_index_name
+          - repo: apple_system_status
+          - repo: capistrano-itamae
+          - repo: chatwork_webhook_verify
+          - repo: connpass_api_v2-ruby
+          - repo: cure_line
+          - repo: datadog_thread_tracer
+          - repo: date_discreter
+          - repo: doorkeeper_jp
+          - repo: faker-precure
+          - repo: faker-pretty_series
+          - repo: faraday-mashify
+          - repo: faraday_boolean
+          - repo: fluent-plugin-chatwork
+          - repo: funnel_http
+          - repo: gitlab_mr_release
+          - repo: google_holiday_calendar
+          - repo: index_shotgun
+          - repo: itamae-plugin-recipe-consul
+          - repo: itamae-plugin-recipe-git_now
+          - repo: itamae-plugin-recipe-gitlab_runner
+          - repo: itamae-plugin-recipe-tig
+          - repo: itamae-plugin-recipe-tmux
+          - repo: itamae-plugin-resource-encrypted_remote_file
+          - repo: itest5ch
+          - repo: kagaribi
+          - repo: kiriban_getter
+          - repo: mysql2-nested_hash_bind
+          - repo: omniauth-chatwork
+          - repo: pixela
+          - repo: prismdb-ruby
+          - repo: rspec-temp_dir
+          - repo: rspec-time_stop
+          - repo: rubocop-isucon
+          - repo: rubocop-itamae
+          - repo: rubocop_auto_corrector
+          - repo: sashimi_tanpopo
+          - repo: sengiri_yaml
+          - repo: syobocalite
+          - repo: x_post_sanitizer
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
@@ -67,12 +100,14 @@ jobs:
           target-dir:        "${{ github.workspace }}/tmp/repo"
           dry-run:           "${{ env.DRY_RUN }}"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
-          message:           "Update files from sue445/sashimi_tanpopo-personal"
-          pr-title:          "Update files from sue445/sashimi_tanpopo-personal"
           pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
-          pr-source-branch:  "update_files"
           pr-assignees:      "${{ env.ASSIGNEE }}"
           only-changes-summary: "true"
+
+          # TODO: Fix followings when add new ruby version
+          message:          "CI against for Ruby 4.0"
+          pr-title:         "CI against for Ruby 4.0"
+          pr-source-branch: "ruby_4.0"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
