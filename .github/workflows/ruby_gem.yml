@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/ruby_gem.yml
+      - misc/ruby_gem_matrix_helper.rb
       - recipes/ruby_gem.rb
 
 env:
