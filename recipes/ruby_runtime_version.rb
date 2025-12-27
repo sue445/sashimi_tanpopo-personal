@@ -64,7 +64,7 @@ update_file ".tool-versions" do |content|
 end
 
 update_file "Dockerfile" do |content|
-  content.gsub!(/^FROM ruby:\\([\d.]+\\)$/, %Q{FROM ruby:#{params[:ruby_version]}})
-  content.gsub!(/^FROM ruby:\\([\d.]+\\)-$(.+)$/) { %Q{FROM ruby:#{params[:ruby_version]}-#{$1}} }
-  content.gsub!(/^ARG RUBY_VERSION=\\([\d.]+\\)$/, %Q{ARG RUBY_VERSION=#{params[:ruby_version]}})
+  content.gsub!(/^FROM ruby:[\d.]+$/, %Q{FROM ruby:#{params[:ruby_version]}})
+  content.gsub!(/^FROM ruby:[\d.]+-$(.+)$/) { %Q{FROM ruby:#{params[:ruby_version]}-#{$1}} }
+  content.gsub!(/^ARG RUBY_VERSION=[\d.]+$/, %Q{ARG RUBY_VERSION=#{params[:ruby_version]}})
 end
