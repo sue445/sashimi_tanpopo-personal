@@ -53,6 +53,7 @@ jobs:
           - repo: prismdb-ruby
           - repo: rspec-temp_dir
           - repo: rspec-time_stop
+          - repo: rubicure
           - repo: rubocop-isucon
           - repo: rubocop-itamae
           - repo: rubocop_auto_corrector
