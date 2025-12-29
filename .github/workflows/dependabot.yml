@@ -22,6 +22,7 @@ jobs:
           - repo: activerecord-compatible_legacy_migration
           - repo: activerecord-simple_index_name
           - repo: apple_system_status
+          - repo: capistrano-around_chatwork
           - repo: capistrano-itamae
           - repo: chatwork_webhook_verify
           - repo: condo3
