@@ -81,6 +81,7 @@ jobs:
           - repo: sashimi_tanpopo_action
           - repo: sengiri_yaml
           - repo: syobocalite
+          - repo: terraform-plan-changes-count
           - repo: terraform-version-updater
           - repo: tweet_pixels
           - repo: workflows
