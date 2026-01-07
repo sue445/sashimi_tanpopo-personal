@@ -61,7 +61,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@abcea180dfe1ff3947b8c34b1cd77a0c2b940bb1 # v0.5.1
+      - uses: sue445/sashimi_tanpopo_action@c621672e96b59b87a7368f9cb36ddd07f30d3173 # v0.6.0
         with:
           recipe-files:         "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
           target-dir:           "${{ github.workspace }}"
@@ -73,8 +73,7 @@ jobs:
           pr-source-branch:     "terraform_${{ env.LATEST_TERRAFORM }}"
           pr-assignees:         "${{ env.ASSIGNEE }}"
           only-changes-summary: "true"
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          github-token:         "${{ steps.generate_token.outputs.token }}"
 
       - name: Slack Notification
         uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
