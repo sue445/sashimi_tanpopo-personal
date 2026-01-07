@@ -61,7 +61,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@abcea180dfe1ff3947b8c34b1cd77a0c2b940bb1 # v0.5.1
+      - uses: sue445/sashimi_tanpopo_action@c621672e96b59b87a7368f9cb36ddd07f30d3173 # v0.6.0
         with:
           recipe-files:         "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
           target-dir:           "${{ github.workspace }}"
