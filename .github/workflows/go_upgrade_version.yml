@@ -91,8 +91,7 @@ jobs:
           pr-source-branch:     "go_${{ matrix.go_version }}"
           pr-assignees:         "${{ env.ASSIGNEE }}"
           only-changes-summary: "true"
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          github-token:         "${{ steps.generate_token.outputs.token }}"
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
