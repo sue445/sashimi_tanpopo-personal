@@ -41,28 +41,28 @@ jobs:
           # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
           - repo: "cure-mastodon-bots"
             ruby_version: "4.0"
-            bundler_version: "4.0.1"
+            bundler_version: "4.0.3"
 
           - repo: "precure-birthday-calendar"
             ruby_version: "4.0"
-            bundler_version: "4.0.1"
+            bundler_version: "4.0.3"
 
           - repo: "pretty-all-friends-birthday-calendar"
             ruby_version: "4.0"
-            bundler_version: "4.0.1"
+            bundler_version: "4.0.3"
 
           - repo: "tweet_pixels"
             ruby_version: "4.0"
-            bundler_version: "4.0.1"
+            bundler_version: "4.0.3"
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "pribirthdaybot"
             ruby_version: "3.4"
-            bundler_version: "4.0.1"
+            bundler_version: "4.0.3"
 
           - repo: "regional-rb-calendar"
             ruby_version: "3.4"
-            bundler_version: "4.0.1"
+            bundler_version: "4.0.3"
 
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
