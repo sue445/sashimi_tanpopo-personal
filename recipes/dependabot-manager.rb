@@ -1,5 +1,4 @@
-# TODO: fix filename after
-update_file ".github/workflows/dependabot-auto-merge.yml" do |content|
+update_file ".github/workflows/dependabot-manager.yml" do |content|
   content.replace(<<~YAML)
     name: dependabot-manager
 
