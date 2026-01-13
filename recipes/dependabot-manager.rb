@@ -1,0 +1,29 @@
+# TODO: fix filename after
+update_file ".github/workflows/dependabot-auto-merge.yml" do |content|
+  content.replace(<<~YAML)
+    name: dependabot-manager
+
+    on:
+      pull_request:
+        types:
+          - opened
+          - synchronize # PR branch is rebased
+
+    jobs:
+      dependabot-auto-merge:
+        uses: sue445/workflows/.github/workflows/dependabot-auto-merge.yml@main
+        secrets:
+          # TODO: Set secrets to Dependabot secrets
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
+
+      dependabot-security-alert:
+        uses: sue445/workflows/.github/workflows/dependabot-security-alert.yml@main
+        secrets:
+          # TODO: Set secrets to Dependabot secrets
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
+  YAML
+end
