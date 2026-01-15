@@ -121,7 +121,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@c621672e96b59b87a7368f9cb36ddd07f30d3173 # v0.6.0
+      - uses: sue445/sashimi_tanpopo_action@063f6590bb5be7c5f35a0870b7434101d298c7b5 # v0.7.0
         with:
           recipe-files:         "${{ github.workspace }}/recipes/dependabot.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
@@ -136,7 +136,7 @@ jobs:
           only-changes-summary: "true"
           github-token:         "${{ steps.generate_token.outputs.token }}"
 
-      - uses: sue445/sashimi_tanpopo_action@c621672e96b59b87a7368f9cb36ddd07f30d3173 # v0.6.0
+      - uses: sue445/sashimi_tanpopo_action@063f6590bb5be7c5f35a0870b7434101d298c7b5 # v0.7.0
         with:
           recipe-files:         "${{ github.workspace }}/recipes/dependabot-manager.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
