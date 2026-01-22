@@ -13,7 +13,3 @@ end
 update_file ".circleci/config.yml" do |content|
   add_version_to_matrix(content:, ruby_versions: RUBY_VERSIONS)
 end
-
-update_file ".gitlab-ci.yml" do |content|
-  add_version_to_matrix(content:, ruby_versions: RUBY_VERSIONS)
-end

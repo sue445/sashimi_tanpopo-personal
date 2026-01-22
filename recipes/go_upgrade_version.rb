@@ -28,11 +28,6 @@ update_file "Dockerfile" do |content|
   content.gsub!(/^FROM golang:([\d.]+)/, %Q{FROM golang:#{@go_minor_version}})
 end
 
-update_file ".gitlab-ci.yml" do |content|
-  content.gsub!(/GO_VERSION:\s+"[\d.]+"$/, %Q{GO_VERSION: "#{@go_minor_version}"})
-  content.gsub!(/GOLANGCI_LINT_VERSION: "v[0-9.]+"/, %Q{GOLANGCI_LINT_VERSION: "#{params[:golangci_lint_version]}"})
-end
-
 update_file ".golangci-lint-version" do |content|
   content.replace("#{params[:golangci_lint_version]}\n")
 end
