@@ -46,7 +46,7 @@ jobs:
             golangci_lint_version: "" # This repo doesn't use golangci-lint
 
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           submodules: true
 
@@ -60,7 +60,7 @@ jobs:
           repositories: ${{ matrix.repo }}
 
       - name: checkout target repo
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
           token:      ${{ steps.generate_token.outputs.token }}
