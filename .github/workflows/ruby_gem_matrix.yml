@@ -1,11 +1,11 @@
-name: ruby_gem
+name: ruby_gem_matrix
 
 on:
   push:
     paths:
-      - .github/workflows/ruby_gem.yml
+      - .github/workflows/ruby_gem_matrix.yml
       - misc/ruby_gem_matrix_helper.rb
-      - recipes/ruby_gem.rb
+      - recipes/ruby_gem_matrix.rb
 
 env:
   NAMESPACE: sue445
@@ -99,7 +99,7 @@ jobs:
 
       - uses: sue445/sashimi_tanpopo_action@063f6590bb5be7c5f35a0870b7434101d298c7b5 # v0.7.0
         with:
-          recipe-files:      "${{ github.workspace }}/recipes/ruby_gem.rb"
+          recipe-files:      "${{ github.workspace }}/recipes/ruby_gem_matrix.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
           dry-run:           "${{ env.DRY_RUN }}"
           github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
