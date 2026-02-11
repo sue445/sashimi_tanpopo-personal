@@ -1,0 +1,101 @@
+name: go_module_matrix
+
+on:
+  push:
+    paths:
+      - .github/workflows/go_module_matrix.yml
+      - misc/go_module_matrix_helper.rb
+      - recipes/go_module_matrix.rb
+
+env:
+  NAMESPACE: sue445
+  ASSIGNEE:  sue445
+  GOLANGCI_LINT_VERSION: "2.9"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - repo: funnel_http
+          - repo: gcp-kmsenv
+          - repo: gcp-secretmanagerenv
+          - repo: go-doorkeeper
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: true
+
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        with:
+          app-id:       ${{ secrets.GH_APP_ID }}
+          private-key:  ${{ secrets.GH_PRIVATE_KEY }}
+          owner:        ${{ env.NAMESPACE }}
+          repositories: ${{ matrix.repo }}
+
+      - name: checkout target repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          repository: ${{ env.NAMESPACE }}/${{ matrix.repo }}
+          token:      ${{ steps.generate_token.outputs.token }}
+          path:       tmp/repo/
+
+      - run: ls -la tmp/repo/
+
+      - name: Generate arguments
+        run: |
+          set -xe
+          if [ "${GITHUB_REF}" == "refs/heads/main" ]; then
+            dry_run="false"
+          else
+            dry_run="true"
+          fi
+          echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
+
+      - uses: sue445/sashimi_tanpopo_action@063f6590bb5be7c5f35a0870b7434101d298c7b5 # v0.7.0
+        with:
+          recipe-files:      "${{ github.workspace }}/recipes/go_module_matrix.rb"
+          target-dir:        "${{ github.workspace }}/tmp/repo"
+          params:             "golangci_lint_version:${{ env.GOLANGCI_LINT_VERSION }}"
+          dry-run:           "${{ env.DRY_RUN }}"
+          github-repository: "${{ env.NAMESPACE }}/${{ matrix.repo }}"
+          pr-body:           "ref. https://github.com/sue445/sashimi_tanpopo-personal/commit/${{ github.sha }}"
+          pr-assignees:      "${{ env.ASSIGNEE }}"
+          only-changes-summary: "true"
+          github-token:      "${{ steps.generate_token.outputs.token }}"
+
+          # TODO: Fix followings when add new ruby version
+          message:          "CI against for Go 1.26"
+          pr-title:         "CI against for Go 1.26"
+          pr-source-branch: "go_1.26"
+
+      - name: Slack Notification (not success)
+        uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
+        if: "! success()"
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          matrix: ${{ toJson(matrix) }}
+
+  notify:
+    needs:
+      - build
+
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: Slack Notification (success)
+        uses: act10ns/slack@cfcc30955fe9377f4f55e1079e5419ee1014269f # v2
+        if: always()
+        continue-on-error: true
+        with:
+          status: ${{ job.status }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
