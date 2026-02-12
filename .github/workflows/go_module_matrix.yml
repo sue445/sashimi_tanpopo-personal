@@ -24,6 +24,7 @@ jobs:
           - repo: funnel_http
           - repo: gcp-kmsenv
           - repo: gcp-secretmanagerenv
+          - repo: gitpanda_fetcher
           - repo: go-doorkeeper
 
     steps:
