@@ -48,6 +48,7 @@ jobs:
           - repo: gcp-secretmanagerenv
           - repo: gitlab_mr_release
           - repo: gitpanda
+          - repo: gitpanda_fetcher
           - repo: go-doorkeeper
           - repo: google_holiday_calendar
           - repo: index_shotgun
