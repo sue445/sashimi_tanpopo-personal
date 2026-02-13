@@ -33,7 +33,7 @@ jobs:
             golangci_lint_version: "2.9"
 
           - repo: "gitpanda"
-            go_version: "1.26"
+            go_version: "1.26.0"
             golangci_lint_version: "2.9"
 
           - repo: "plant_erd"
