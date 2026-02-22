@@ -11,7 +11,7 @@ update_file ".github/workflows/dependabot-manager.yml" do |content|
     jobs:
       dependabot-auto-merge:
         uses: sue445/workflows/.github/workflows/dependabot-auto-merge.yml@main
-        inputs:
+        with:
           repo-name: #{params[:repo_name]}
         secrets:
           # TODO: Set secrets to Dependabot secrets
@@ -21,7 +21,7 @@ update_file ".github/workflows/dependabot-manager.yml" do |content|
 
       dependabot-security-alert:
         uses: sue445/workflows/.github/workflows/dependabot-security-alert.yml@main
-        inputs:
+        with:
           repo-name: #{params[:repo_name]}
         secrets:
           # TODO: Set secrets to Dependabot secrets
