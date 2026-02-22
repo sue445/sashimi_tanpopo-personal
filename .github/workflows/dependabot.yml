@@ -141,6 +141,7 @@ jobs:
         with:
           recipe-files:         "${{ github.workspace }}/recipes/dependabot-manager.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
+          params:               "repo_name:${{ env.NAMESPACE }}/${{ matrix.repo }}"
           dry-run:              "${{ env.DRY_RUN }}"
           github-repository:    "${{ env.NAMESPACE }}/${{ matrix.repo }}"
           message:              "Update dependabot-manager.yml [ci skip]"
