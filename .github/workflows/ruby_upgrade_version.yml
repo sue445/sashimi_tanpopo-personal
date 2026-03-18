@@ -57,11 +57,11 @@ jobs:
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "pribirthdaybot"
-            ruby_version: "3.4"
+            ruby_version: "4.0"
             bundler_version: "4.0.3"
 
           - repo: "regional-rb-calendar"
-            ruby_version: "3.4"
+            ruby_version: "4.0"
             bundler_version: "4.0.3"
 
     steps:

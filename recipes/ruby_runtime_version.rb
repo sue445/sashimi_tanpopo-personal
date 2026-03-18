@@ -38,14 +38,30 @@ update_file "Gemfile" do |content|
   end
 end
 
-if @ruby_version_with_patch_level
-  update_file "Gemfile.lock" do |content|
+update_file "Gemfile.lock" do |content|
+  if @ruby_version_with_patch_level
+    # for bundler < 4
     content.gsub!(/^RUBY VERSION\n   ruby ([\d.p]+)\n/m) do
       <<~GEMFILE_LOCK
         RUBY VERSION
            ruby #{@ruby_version_with_patch_level}
-        GEMFILE_LOCK
+      GEMFILE_LOCK
     end
+  end
+
+  # for bundler 4+
+  content.gsub!(/^RUBY VERSION\n  ruby ([\d.p]+)\n/m) do
+    version =
+      if @is_full_version
+        params[:ruby_version]
+      else
+        "#{params[:ruby_version]}.0"
+      end
+
+    <<~GEMFILE_LOCK
+      RUBY VERSION
+        ruby #{version}
+    GEMFILE_LOCK
   end
 end
 
