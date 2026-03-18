@@ -25,15 +25,15 @@ jobs:
 
           - repo: "dockerhub-slack-webhook"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "emoy_webhook"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "rubicure-playground"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "sashimi_tanpopo"
             ruby_version: "4.0"
@@ -41,28 +41,28 @@ jobs:
           # NOTE: Dependent on https://hub.docker.com/r/cimg/ruby
           - repo: "cure-mastodon-bots"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "precure-birthday-calendar"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "pretty-all-friends-birthday-calendar"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "tweet_pixels"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "pribirthdaybot"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
           - repo: "regional-rb-calendar"
             ruby_version: "4.0"
-            bundler_version: "4.0.3"
+            bundler_version: "4.0.8"
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
