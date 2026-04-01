@@ -51,16 +51,22 @@ update_file "Gemfile.lock" do |content|
 
   # for bundler 4+
   content.gsub!(/^RUBY VERSION\n  ruby ([\d.p]+)\n/m) do
-    version =
+    next_version =
       if @is_full_version
         params[:ruby_version]
       else
         "#{params[:ruby_version]}.0"
       end
 
+    current_version = $1
+    if Gem::Version.new(current_version.gsub(/p*$/, "")) >= Gem::Version.new(next_version)
+      # Don't update version
+      next_version = current_version
+    end
+
     <<~GEMFILE_LOCK
       RUBY VERSION
-        ruby #{version}
+        ruby #{next_version}
     GEMFILE_LOCK
   end
 end
@@ -70,7 +76,7 @@ update_file ".rubocop.yml" do |content|
 end
 
 update_file ".github/workflows/*.yml" do |content|
-  content.gsub!(/ruby-version: "(.+)"/, %Q{ruby-version: "#{params[:ruby_version]}"})
+  content.gsub!(/ruby-next_version: "(.+)"/, %Q{ruby-next_version: "#{params[:ruby_version]}"})
 
   content.gsub!(/ruby\d{2}(?!\d)/, @gcp_runtime_version)
 end
