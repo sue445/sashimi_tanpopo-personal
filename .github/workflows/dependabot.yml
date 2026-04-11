@@ -47,6 +47,7 @@ jobs:
           - repo: funnel_http
           - repo: gcp-kmsenv
           - repo: gcp-secretmanagerenv
+          - repo: ghrcooldown
           - repo: gitlab_mr_release
           - repo: gitpanda
           - repo: gitpanda_fetcher
