@@ -3,6 +3,8 @@
 v = params[:go_version].split(".")
 @gcp_runtime_version = "go#{v[0]}#{v[1]}"
 
+@is_full_version = v.length == 3
+
 update_file ".github/workflows/*.yml" do |content|
   content.gsub!(/go-version:\s+[\d.]+\s*$/, "go-version: #{params[:go_version]}")
   content.gsub!(/GO_VERSION:\s+[\d.]+$/, "GO_VERSION: #{params[:go_version]}")
@@ -16,7 +18,17 @@ update_file "app.yaml" do |content|
 end
 
 update_file "go.mod" do |content|
-  content.gsub!(/^go [\d.]+$/, "go #{params[:go_version]}")
+  if @is_full_version
+    content.gsub!(/^go [\d.]+$/, "go #{params[:go_version]}")
+  else
+    content =~ /^go ([\d.]+)$/
+    gomod_version = $1
+
+    if (gomod_version.to_f - @go_minor_version).abs > Float::EPSILON
+      # Update go version when minor version is changed
+      content.gsub!(/^go [\d.]+$/, "go #{params[:go_version]}")
+    end
+  end
 end
 
 update_file ".circleci/config.yml" do |content|
