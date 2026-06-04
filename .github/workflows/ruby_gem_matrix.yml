@@ -97,7 +97,7 @@ jobs:
           fi
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
-      - uses: sue445/sashimi_tanpopo_action@063f6590bb5be7c5f35a0870b7434101d298c7b5 # v0.7.0
+      - uses: sue445/sashimi_tanpopo_action@6d750aa80f9e9d16d9c7ce1bf3fd842d9bcd8d10 # v0.7.1
         with:
           recipe-files:      "${{ github.workspace }}/recipes/ruby_gem_matrix.rb"
           target-dir:        "${{ github.workspace }}/tmp/repo"
