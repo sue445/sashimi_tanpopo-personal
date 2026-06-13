@@ -5,8 +5,6 @@ on:
     paths:
       - .github/workflows/terraform_upgrade_myself_version.yml
       - recipes/terraform_upgrade_myself_version.rb
-      - misc/print_latest_terraform_version.rb
-      - misc/terraform_helper.rb
     branches-ignore:
       - main
 
@@ -31,16 +29,23 @@ jobs:
         with:
           ruby-version: ruby
 
+      - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
+        with:
+          go-version: stable
+
+      - run: go install github.com/sue445/ghrcooldown/cmd/ghrcooldown@latest
+
       - name: Set envs
         run: |
           set -xe
           GH_REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d/ -f2)
           echo "GH_REPO_NAME=${GH_REPO_NAME}" >> $GITHUB_ENV
-          
-          LATEST_TERRAFORM=$(ruby ./misc/print_latest_terraform_version.rb)
+
+          LATEST_TERRAFORM=$(ghrcooldown latest --repo hashicorp/terraform --cooldown-days 7)
+          LATEST_TERRAFORM=${LATEST_TERRAFORM#v}
           echo "LATEST_TERRAFORM=${LATEST_TERRAFORM}" >> $GITHUB_ENV
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate token
         id: generate_token
@@ -65,6 +70,7 @@ jobs:
         with:
           recipe-files:         "${{ github.workspace }}/recipes/terraform_upgrade_myself_version.rb"
           target-dir:           "${{ github.workspace }}"
+          params:               "terraform_version:${{ env.LATEST_TERRAFORM }}"
           dry-run:              "${{ env.DRY_RUN }}"
           github-repository:    "${{ env.NAMESPACE }}/${{ env.GH_REPO_NAME }}"
           message:              "Upgrade to Terraform ${{ env.LATEST_TERRAFORM }}"
