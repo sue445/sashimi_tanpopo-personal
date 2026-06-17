@@ -71,6 +71,7 @@ jobs:
           - repo: pretty-all-friends-birthday-calendar
           - repo: pribirthdaybot
           - repo: prismdb-ruby
+          - repo: rb-wasm-vdom
           - repo: regional-rb-calendar
           - repo: rspec-temp_dir
           - repo: rspec-time_stop
