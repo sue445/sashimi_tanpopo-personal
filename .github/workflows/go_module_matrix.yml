@@ -10,7 +10,7 @@ on:
 env:
   NAMESPACE: sue445
   ASSIGNEE:  sue445
-  GOLANGCI_LINT_VERSION: "2.9"
+  GOLANGCI_LINT_VERSION: "2.13"
 
 jobs:
   build:
@@ -73,10 +73,10 @@ jobs:
           only-changes-summary: "true"
           github-token:      "${{ steps.generate_token.outputs.token }}"
 
-          # TODO: Fix followings when add new ruby version
-          message:          "CI against for Go 1.26"
-          pr-title:         "CI against for Go 1.26"
-          pr-source-branch: "go_1.26"
+          # TODO: Fix followings when add new Go version
+          message:          "CI against for Go 1.27"
+          pr-title:         "CI against for Go 1.27"
+          pr-source-branch: "go_1.27"
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@d96404edccc6d6467fc7f8134a420c851b1e9054 # v2.2.0

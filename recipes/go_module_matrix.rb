@@ -1,6 +1,7 @@
 GO_VERSIONS = %w(
   1.25
   1.26
+  1.27
 )
 
 require_relative "../misc/go_module_matrix_helper"
