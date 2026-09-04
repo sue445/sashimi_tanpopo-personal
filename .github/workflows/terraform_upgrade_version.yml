@@ -21,10 +21,10 @@ jobs:
         include:
           # c.f. https://github.com/hashicorp/terraform/blob/main/CHANGELOG.md
           - repo: "terraform-aws-template"
-            terraform_version: "1.15.9"
+            terraform_version: "1.16.0"
 
           - repo: "terraform-gcp-template"
-            terraform_version: "1.15.9"
+            terraform_version: "1.16.0"
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
