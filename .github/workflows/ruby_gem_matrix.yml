@@ -53,6 +53,7 @@ jobs:
           - repo: omniauth-chatwork
           - repo: pixela
           - repo: prismdb-ruby
+          - repo: rbpacker
           - repo: rspec-temp_dir
           - repo: rspec-time_stop
           - repo: rubicure
