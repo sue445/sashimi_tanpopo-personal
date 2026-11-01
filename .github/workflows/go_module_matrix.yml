@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/go_module_matrix.yml
       - misc/go_module_matrix_helper.rb
+      - misc/upgrade_available.rb
       - recipes/go_module_matrix.rb
 
 env:

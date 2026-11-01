@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/go_upgrade_version.yml
+      - misc/upgrade_available.rb
       - recipes/go_upgrade_version.rb
 
 env:
