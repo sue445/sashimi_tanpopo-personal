@@ -1,3 +1,5 @@
+require_relative "../misc/upgrade_available"
+
 @go_minor_version = params[:go_version].to_f
 
 v = params[:go_version].split(".")
@@ -41,9 +43,21 @@ update_file "Dockerfile" do |content|
 end
 
 update_file ".golangci-lint-version" do |content|
-  content.replace("#{params[:golangci_lint_version]}\n")
+  before_version = content.strip
+  after_version = params[:golangci_lint_version]
+
+  if upgrade_available?(before_version:, after_version:)
+    content.replace("#{after_version}\n")
+  end
 end
 
 update_file ".tool-versions" do |content|
-  content.gsub!(/^golangci-lint ([\d.]+)$/, "golangci-lint #{params[:golangci_lint_version]}")
+  if content =~ /^golangci-lint ([\d.]+)$/
+    before_version = $1.strip
+    after_version = params[:golangci_lint_version]
+
+    if upgrade_available?(before_version:, after_version:)
+      content.gsub!(/^golangci-lint ([\d.]+)$/, "golangci-lint #{after_version}")
+    end
+  end
 end
