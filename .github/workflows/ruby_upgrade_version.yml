@@ -53,7 +53,7 @@ jobs:
 
           - repo: "tweet_pixels"
             ruby_version: "4.0"
-            bundler_version: "4.0.15"
+            bundler_version: "4.0.20"
 
           # c.f. https://cloud.google.com/functions/docs/concepts/execution-environment#ruby
           - repo: "pribirthdaybot"
