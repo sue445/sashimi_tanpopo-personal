@@ -28,6 +28,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.3.0'
         - 'sue445/sashimi_tanpopo_action@v0.7.1'
+    '.github/workflows/verify-actions-lockfile.yml': []
 dependencies:
     'act10ns/slack@v2.2.0':
         ref: 'v2.2.0'
