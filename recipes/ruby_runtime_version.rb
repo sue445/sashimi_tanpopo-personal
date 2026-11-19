@@ -1,21 +1,8 @@
-def ruby_version_with_patch_level(ruby_version)
-  v = ruby_version.split(".")
-  return nil unless v.size == 3
-
-  # Fetch RUBY_PATCHLEVEL from https://github.com/ruby/ruby/blob/master/version.h
-  git_tag = "v" + ruby_version.gsub(".", "_")
-  version_h = URI.open("https://raw.githubusercontent.com/ruby/ruby/#{git_tag}/version.h").read
-  ruby_patchlevel = /^#define\s+RUBY_PATCHLEVEL\s+(\d+)/.match(version_h).to_a[1]
-
-  "#{ruby_version}p#{ruby_patchlevel}"
-end
-
 v = params[:ruby_version].split(".")
 
 @is_full_version = v.count == 3
 @ruby_minor_version = "#{v[0]}.#{v[1]}"
 @gcp_runtime_version = "ruby#{v[0]}#{v[1]}"
-@ruby_version_with_patch_level = ruby_version_with_patch_level(params[:ruby_version])
 
 update_file ".circleci/config.yml" do |content|
   content.gsub!(%r{- image: circleci/ruby:[\d.]+}, "- image: circleci/ruby:#{params[:ruby_version]}")
@@ -39,17 +26,6 @@ update_file "Gemfile" do |content|
 end
 
 update_file "Gemfile.lock" do |content|
-  if @ruby_version_with_patch_level
-    # for bundler < 4
-    content.gsub!(/^RUBY VERSION\n   ruby ([\d.p]+)\n/m) do
-      <<~GEMFILE_LOCK
-        RUBY VERSION
-           ruby #{@ruby_version_with_patch_level}
-      GEMFILE_LOCK
-    end
-  end
-
-  # for bundler 4+
   content.gsub!(/^RUBY VERSION\n  ruby ([\d.p]+)\n/m) do
     next_version =
       if @is_full_version
