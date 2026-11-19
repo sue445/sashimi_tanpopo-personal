@@ -98,7 +98,7 @@ jobs:
           echo "DRY_RUN=${dry_run}" >> $GITHUB_ENV
 
       - name: Run recipes/ruby_runtime_version.rb
-        uses: sue445/sashimi_tanpopo_action@v0.7.1
+        uses: sue445/sashimi_tanpopo_action@v0.7.2
         with:
           recipe-files:         "${{ github.workspace }}/recipes/ruby_runtime_version.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
@@ -114,7 +114,7 @@ jobs:
           github-token:         "${{ steps.generate_token.outputs.token }}"
 
       - name: Run recipes/ruby_bundler_version.rb
-        uses: sue445/sashimi_tanpopo_action@v0.7.1
+        uses: sue445/sashimi_tanpopo_action@v0.7.2
         with:
           recipe-files:         "${{ github.workspace }}/recipes/ruby_bundler_version.rb"
           target-dir:           "${{ github.workspace }}/tmp/repo"
